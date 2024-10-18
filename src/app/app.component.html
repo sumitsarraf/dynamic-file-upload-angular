@@ -1,0 +1,80 @@
+<mat-toolbar fxLayoutAlign="space-between center">
+  <h3>File Upload</h3>
+  <div fxLayoutGap="8px">
+    <button
+      mat-stroked-button
+      [color]="_showStatusBar ? 'primary' : ''"
+      (click)="_showStatusBar = !_showStatusBar"
+      matTooltip="Toggle status bar"
+    >
+      <mat-icon class="rotate-90">{{
+        _showStatusBar ? 'view_sidebar' : 'view_week'
+      }}</mat-icon>
+    </button>
+    <button
+      mat-stroked-button
+      [color]="_allowMultiple ? 'primary' : ''"
+      (click)="_allowMultiple = !_allowMultiple"
+      matTooltip="Toggle multiple file selection"
+    >
+      <mat-icon>{{
+        _allowMultiple ? 'file_copy_outline' : 'upload_file'
+      }}</mat-icon>
+    </button>
+    <button
+      mat-stroked-button
+      [color]="_showCaption ? 'primary' : ''"
+      (click)="_showCaption = !_showCaption"
+      matTooltip="Toggle caption"
+    >
+      <mat-icon>{{
+        _showCaption ? 'closed_caption' : 'closed_caption_off'
+      }}</mat-icon>
+    </button>
+    <button
+      mat-stroked-button
+      [color]="_throwError ? 'warn' : ''"
+      matTooltip="Throw error"
+      (click)="_throwError = !_throwError"
+    >
+      <mat-icon>{{ _throwError ? 'error' : 'error_outline' }}</mat-icon>
+    </button>
+    <button mat-stroked-button (click)="fileUpload.reset()" matTooltip="Reset">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<mat-divider></mat-divider>
+
+<app-file-upload
+  #fileUpload
+  [uploadSource]="_uploadSource"
+  [statusBar]="_showStatusBar"
+>
+  <input appFileUploadInput [multiple]="_allowMultiple" type="file" />
+  <app-file-upload-caption *ngIf="_showCaption">
+    Supported file types: PDF, TIFF, WORD, PNG, JPEG
+  </app-file-upload-caption>
+
+  <!-- <ng-container *appFileUploadItemAction="let uploadItem">
+    <button mat-button>Custom Action</button>
+  </ng-container> -->
+</app-file-upload>
+
+<h3>Unknowns:</h3>
+<ul>
+  <li>
+    States for multi-file upload
+    <ul>
+      <li>Uploading</li>
+      <li>Uploaded</li>
+      <li>Failed (error)</li>
+    </ul>
+  </li>
+  <li>
+    Single file upload States
+    <ul>
+      <li>Disable zone or clear previous upload state on new selection?</li>
+    </ul>
+  </li>
+</ul>
